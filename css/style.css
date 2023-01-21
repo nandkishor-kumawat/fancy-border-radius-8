@@ -17,7 +17,7 @@
 .box {
   width: 60vmin;
   height: 60vmin;
-  border: 2px dashed #fff;
+  border: 2px dashed #ffffffab;
   position: relative;
   z-index: 3;
 }
