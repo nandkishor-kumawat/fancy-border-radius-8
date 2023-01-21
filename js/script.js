@@ -13,7 +13,6 @@ function mouseD() {
 }
 
 function mouseM() {
-    let o
     let e = event
     let el = document.querySelector('.active') 
     let vt = e.clientY - el.parentElement.offsetTop
@@ -26,22 +25,12 @@ function mouseM() {
     hz = hz > w ? w : hz
 
 
-    if (el.classList.contains("top")) {
-        o = (hz / w * 100).toFixed();
-        el.style.left = o + '%';
-    }
-    if (el.classList.contains("right")) {
-        o = (vt / h * 100).toFixed();
-        el.style.top = o + '%';
-    }
-    if (el.classList.contains("bottom")) {
-        o = (hz / w * 100).toFixed();
-        el.style.left = o + '%';
-    }
-    if (el.classList.contains("left")) {
-        o = (vt / h * 100).toFixed();
-        el.style.top = o + '%';
-    }
+    if (el.classList.contains("hr")) 
+        el.style.left = (hz / w * 100).toFixed() + '%';
+    
+    if (el.classList.contains("vt")) 
+        el.style.top = (vt / h * 100).toFixed() + '%';
+    
 
     let tl = ($$('#topLeft').offsetLeft / w * 100).toFixed()
     let tr = ($$('#topRight').offsetLeft / w * 100).toFixed()
