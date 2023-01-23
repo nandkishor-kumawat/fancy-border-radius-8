@@ -9,12 +9,14 @@ function mouseD() {
     event.target.classList.add('active')
     document.addEventListener('mousemove', mouseM)
     document.addEventListener('mouseup', mouseU)
+    document.addEventListener('touchmove', mouseM)
+    document.addEventListener('touchend', mouseU)
     document.body.style.setProperty('user-select', 'none')
 }
 
 function mouseM() {
-    let e = event
-    let el = document.querySelector('.active') 
+    let e = event.type == "touchmove" ? event.touches[0] : event
+    let el = document.querySelector('.active')
     let vt = e.clientY - el.parentElement.offsetTop
     let hz = e.clientX - el.parentElement.offsetLeft
     let w = shape.offsetWidth
@@ -25,12 +27,12 @@ function mouseM() {
     hz = hz > w ? w : hz
 
 
-    if (el.classList.contains("hr")) 
+    if (el.classList.contains("hr"))
         el.style.left = (hz / w * 100).toFixed() + '%';
-    
-    if (el.classList.contains("vt")) 
+
+    if (el.classList.contains("vt"))
         el.style.top = (vt / h * 100).toFixed() + '%';
-    
+
 
     let tl = ($$('#topLeft').offsetLeft / w * 100).toFixed()
     let tr = ($$('#topRight').offsetLeft / w * 100).toFixed()
@@ -47,12 +49,14 @@ function mouseM() {
 function mouseU() {
     document.removeEventListener('mousemove', mouseM)
     document.removeEventListener('mouseup', mouseU)
+    document.removeEventListener('touchmove', mouseM)
+    document.removeEventListener('touchend', mouseU)
     document.querySelector('.active').classList.remove('active')
     document.body.style.removeProperty('user-select')
 }
 
-function setBorder(tl=10, tr=90, rt=10, rb=90, bl=10, br=90, lt=10, lb=90) {
-    let bdr = `${tl}% ${100-tr}% ${100 - br}% ${bl}% / ${lt}% ${rt}% ${100 - rb}%  ${100 - lb}% `;
+function setBorder(tl = 10, tr = 90, rt = 10, rb = 90, bl = 10, br = 90, lt = 10, lb = 90) {
+    let bdr = `${tl}% ${100 - tr}% ${100 - br}% ${bl}% / ${lt}% ${rt}% ${100 - rb}%  ${100 - lb}% `;
 
     shape.style.borderRadius = bdr;
     $$('.bdr p').innerText = bdr;
