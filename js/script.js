@@ -3,6 +3,8 @@ let shape = $$('#shape')
 
 selecters.forEach(el => {
     el.addEventListener('mousedown', mouseD)
+    el.addEventListener('touchstart', mouseD)
+
 })
 
 function mouseD() {
