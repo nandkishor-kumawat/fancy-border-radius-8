@@ -4,7 +4,10 @@ let shape = $$('#shape')
 selecters.forEach(el => {
     el.addEventListener('mousedown', mouseD)
     el.addEventListener('touchstart', mouseD)
+})
 
+document.querySelectorAll('#dimension input').forEach(ele => {
+    ele.oninput = () => setSize()
 })
 
 function mouseD() {
@@ -27,7 +30,6 @@ function mouseM() {
     vt = vt > h ? h : vt
     hz = hz < 0 ? 0 : hz
     hz = hz > w ? w : hz
-
 
     if (el.classList.contains("hr"))
         el.style.left = (hz / w * 100).toFixed() + '%';
@@ -61,14 +63,27 @@ function setBorder(tl = 10, tr = 90, rt = 10, rb = 90, bl = 10, br = 90, lt = 10
     let bdr = `${tl}% ${100 - tr}% ${100 - br}% ${bl}% / ${lt}% ${rt}% ${100 - rb}%  ${100 - lb}% `;
 
     shape.style.borderRadius = bdr;
-    $$('.bdr p').innerText = bdr;
+    $$('#code').innerText = bdr;
 } setBorder()
 
-$$('.bdr button').onclick = e => {
+function setSize() {
+    $$('#box').style.width = $$('#width').value + 'px';
+    $$('#box').style.height = $$('#height').value + 'px';
+}
+
+$$('#copy').onclick = e => {
     // navigator.clipboard.writeText(e.target.parentElement.innerText.replace('copy',''))
     navigator.clipboard.writeText(e.target.previousElementSibling.innerText)
+}
+
+$$('#customSize').onclick = () => {
+    $$('#dimension').classList.toggle('visible');
+    setSize()
 }
 
 function $$(s) {
     return document.querySelector(s)
 }
+
+$$('#width').value = box.offsetWidth;
+$$('#height').value = box.offsetHeight;
